@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Color Prediction Game</title>
+    <style>
+        #color{
+            background-image: url('rainbow-color-colorful.gif');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            display: flex;
+    width: 100%;
+    align-items: center;
+    height: 95vh;
+    flex-direction: column;
+        }
+        #upper_form{
+            display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-top: 33px;
+        }
+        p{
+            font-size: 20px;
+    margin: 16px 0 0 0;
+    font-family: sans-serif;
+    color: #424242;
+        }
+        button{
+            width: 15%;
+    height: 33px;
+    margin-left: 10px;
+    background-color: #3b3b89;
+    color: white;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+        }
+        button:hover{
+            background-color: #272769;
+        }
+        select{
+            width: 100%;
+    height: 33px;
+    padding: 0 25px;
+    outline: none;
+    font-size: 16px;
+    border: 1px solid black;
+        }
+        #timer{
+    margin: 0;
+    font-size: 100px;
+    text-align: center;
+    color: white;
+        }
+        input{
+            outline: none;
+            border: 1px solid black;
+            padding-left: 10px;
+            width: 20%;
+            height: 25px;
+        }
+        .show_result{
+            background-image: url(back1.jpg);
+    background-repeat: no-repeat;
+    background-size: 65% 80%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        }
+        .show_result_child{
+            background-color: #0089ff;
+    border-radius: 200px;
+    width: 260px;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        }
+        #gif_show{
+            width: 100%;
+            height: 97vh;
+            background-image: url("congrats-congratulations.gif");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            display: none;
+        }
+        #sad_show{
+            width: 100%;
+            height: 97vh;
+            background-image: url("sad.gif");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            display: none;
+        }
+
+        @media (max-width: 576px){
+            .show_result_child {
+    width: 211px;
+    height: 210px;
+}
+#timer {
+    font-size: 60px;
+}
+p {
+    font-size: 15px;
+    margin: 16px 0 0 0;
+    font-family: sans-serif;
+    color: #424242;
+}
+select {
+    height: 28px;
+}
+button {
+    height: 28px;
+    width: 20%;
+}
+        }
+
+        @media (max-width: 375px){
+            #upper_form {
+    flex-direction: column;
+}
+button {
+    width: 35%;
+    margin-left: 0;
+    margin-top: 5px;
+}
+p {
+    font-size: 15px;
+    text-align: center;
+    width: 70%;
+}
+select {
+    height: 25px;
+}
+.show_result_child {
+    width: 131px;
+    height: 127px;
+}
+#timer {
+    font-size: 30px;
+}
+        }
+    </style>
+</head>
+<body>
+    <div id="color">
+        <div id="upper_form">
+            <form action="">
+                <select name="color_select" id="select_color">
+                    <option value="">---Choose color---</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="yello">Yello</option>
+                    <option value="orange">Orange</option>
+                    <option value="gray">Gray</option>
+                    <option value="black">Black</option>
+                    <option alue="maroon">Maroon</option>
+                    <option value="purple">Purple</option>
+                    <option value="green">Green</option>
+                    <option value="olive">Olive</option>
+                    <option value="navy">Navy</option>
+                    <option value="teal">Teal</option>
+                    <option value="brown">Brown</option>
+                    <option value="coral">Coral</option>
+                    <option value="crimson">Crimson</option>
+                    <option value="darkmagenta">Darkmagenta</option>
+                    <option value="deeppink">Deeppink</option>
+                    <option value="goldenrod">Goldenrod</option>
+                    <option value="mediumorchid">Mediumorchid</option>
+                    <option value="orangered">Orangered</option>
+                    <option value="peru">Peru</option>
+                </select>
+            </form>
+            <button id="confirm_btn" onclick="confirmationBtn()">CONFIRM</button>
+        </div>
+        <p>Predict a color to fill the white space in the page</p>
+        <div class="show_result">
+            <div class="show_result_child">
+                <h1 id="timer">Start</h1>
+            </div>
+        </div>
+        <!-- <input type="text" placeholder="Enter any color" id="color_input" onkeyup="colorPredict()" onchange="colorPredict()"> -->
+    </div>
+    <div id="gif_show">
+
+    </div>
+    <div id="sad_show">
+
+    </div>
+</body>
+<script>
+    var array = ['red','blue','yello','orange','gray','black','maroon','purple','green','olive','navy','teal','brown','coral','crimson','darkmagenta','deeppink','goldenrod','mediumorchid','orangered','peru'];
+    var number = Math.floor(Math.random()*(22-0)+0);
+    var coloName = array[number];
+    console.log(coloName);
+    var selectVar;
+    var i=11;
+    var timer = document.getElementById('timer');
+
+    function confirmationBtn(){
+        selectVar = document.getElementById('select_color').value;
+        if(selectVar == undefined || selectVar == ""){
+            alert("Please select any color");
+        }
+        else{
+            document.getElementById('confirm_btn').setAttribute("disabled", "");
+            refreshIntervalId = setInterval(() => {
+                i--;
+                console.log(i);
+                timer.innerHTML = i;
+                if(i===0){
+                clearInterval(refreshIntervalId);
+                if(selectVar == coloName){
+                    document.getElementById('color').style.backgroundColor = coloName;
+                    setTimeout(() => {
+                        alert("Your prediction is right");
+                    }, 1000);
+                        setTimeout(() => {
+                            document.getElementById('color').style.display = 'none';
+                            document.getElementById('sad_show').style.display = 'none';
+                            document.getElementById('gif_show').style.display = 'block';
+                            document.getElementById('confirm_btn').setAttribute("enabled", "");
+                        }, 2000);
+                }
+                else{
+                    document.getElementById('color').style.backgroundColor = coloName;
+                    setTimeout(() => {
+                        alert("Your prediction is wrong try next attempt");
+                    }, 1000);
+                    
+                    setTimeout(() => {
+                        document.getElementById('color').style.display = 'none';
+                        document.getElementById('gif_show').style.display = 'none';
+                        document.getElementById('sad_show').style.display = 'block';
+                        document.getElementById('confirm_btn').setAttribute("enabled", "");
+                    }, 2000);
+                }
+                setTimeout(() => {
+                    window.location = "index.html";
+                }, 6000);
+            }
+            }, 1000);
+            
+            
+        }
+    }
+</script>
+</html>
+
+
+<!-- To do list 
+color prediction Game
+chrome extenssion 
+watch -->
