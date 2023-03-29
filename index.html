@@ -216,7 +216,6 @@ select {
             document.getElementById('confirm_btn').setAttribute("disabled", "");
             refreshIntervalId = setInterval(() => {
                 i--;
-                console.log(i);
                 timer.innerHTML = i;
                 if(i===0){
                 clearInterval(refreshIntervalId);
