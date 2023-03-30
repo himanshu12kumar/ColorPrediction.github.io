@@ -181,12 +181,12 @@ select {
                     <option value="peru">Peru</option>
                 </select>
             </form>
-            <button id="confirm_btn" onclick="confirmationBtn()">CONFIRM</button>
+            <button id="confirm_btn" onclick="confirmationBtn()">START</button>
         </div>
         <p>Predict a color to fill the white space in the page</p>
         <div class="show_result">
             <div class="show_result_child">
-                <h1 id="timer" onclick="confirmationBtn()">Start</h1>
+                <h1 id="timer">...</h1>
             </div>
         </div>
         <!-- <input type="text" placeholder="Enter any color" id="color_input" onkeyup="colorPredict()" onchange="colorPredict()"> -->
@@ -197,6 +197,9 @@ select {
     <div id="sad_show">
 
     </div>
+    <audio id="audioPlay" src="back.mp3"></audio>
+    <audio id="sadPlay" src="sad.mp3"></audio>
+    <audio id="wonPlay" src="wow.mp3"></audio>
 </body>
 <script>
     var array = ['red','blue','yello','orange','gray','black','maroon','purple','green','olive','navy','teal','brown','coral','crimson','darkmagenta','deeppink','goldenrod','mediumorchid','orangered','peru'];
@@ -207,7 +210,14 @@ select {
     var i=11;
     var timer = document.getElementById('timer');
 
+    function sadPlay(){
+        document.getElementById('sadPlay').play();
+    }
+    function wonPlay(){
+        document.getElementById('wonPlay').play();
+    }
     function confirmationBtn(){
+        document.getElementById('audioPlay').play();
         selectVar = document.getElementById('select_color').value;
         if(selectVar == undefined || selectVar == ""){
             alert("Please select any color");
@@ -216,6 +226,7 @@ select {
             document.getElementById('confirm_btn').setAttribute("disabled", "");
             refreshIntervalId = setInterval(() => {
                 i--;
+                console.log(i);
                 timer.innerHTML = i;
                 if(i===0){
                 clearInterval(refreshIntervalId);
@@ -225,10 +236,12 @@ select {
                         alert("Your prediction is right");
                     }, 1000);
                         setTimeout(() => {
+                            document.getElementById('audioPlay').pause();
                             document.getElementById('color').style.display = 'none';
                             document.getElementById('sad_show').style.display = 'none';
                             document.getElementById('gif_show').style.display = 'block';
                             document.getElementById('confirm_btn').setAttribute("enabled", "");
+                            wonPlay();
                         }, 2000);
                 }
                 else{
@@ -238,15 +251,17 @@ select {
                     }, 1000);
                     
                     setTimeout(() => {
+                        document.getElementById('audioPlay').pause();
                         document.getElementById('color').style.display = 'none';
                         document.getElementById('gif_show').style.display = 'none';
                         document.getElementById('sad_show').style.display = 'block';
                         document.getElementById('confirm_btn').setAttribute("enabled", "");
+                        sadPlay();
                     }, 2000);
                 }
                 setTimeout(() => {
                     window.location = "index.html";
-                }, 6000);
+                }, 5000);
             }
             }, 1000);
             
